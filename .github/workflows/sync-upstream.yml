@@ -23,10 +23,10 @@ jobs:
       - name: Fetch upstream
         run: git fetch upstream main
 
-      - name: Check for differences
+      - name: Check for new upstream commits
         id: diff
         run: |
-          if git diff --quiet origin/main upstream/main; then
+          if git merge-base --is-ancestor upstream/main origin/main; then
             echo "up_to_date=true" >> "$GITHUB_OUTPUT"
           else
             echo "up_to_date=false" >> "$GITHUB_OUTPUT"
