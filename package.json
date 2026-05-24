@@ -1,10 +1,10 @@
 {
     "name": "theme-dracula",
     "version": "2.25.1",
-    "displayName": "Dracula Theme Official",
+    "displayName": "Dracula Theme (Barabazs)",
     "homepage": "https://draculatheme.com/",
     "description": "The official Dracula Theme: a dark theme for many editors, shells, and more. 🦇",
-    "publisher": "dracula-theme",
+    "publisher": "Barabazs",
     "license": "MIT",
     "scripts": {
         "build": "node ./scripts/build.js",

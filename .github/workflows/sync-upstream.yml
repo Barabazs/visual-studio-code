@@ -1,0 +1,75 @@
+name: Sync Upstream
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/dracula/visual-studio-code.git
+
+      - name: Fetch upstream
+        run: git fetch upstream main
+
+      - name: Check for differences
+        id: diff
+        run: |
+          if git diff --quiet origin/main upstream/main; then
+            echo "up_to_date=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "up_to_date=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for existing sync PR
+        if: steps.diff.outputs.up_to_date == 'false'
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          count=$(gh pr list --label upstream-sync --state open --json number --jq 'length')
+          echo "has_open_pr=$( [ "$count" -gt 0 ] && echo true || echo false )" >> "$GITHUB_OUTPUT"
+
+      - name: Create sync branch and PR
+        if: steps.diff.outputs.up_to_date == 'false' && steps.existing.outputs.has_open_pr == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="sync/upstream-$(date +%Y-%m-%d)"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git merge upstream/main --no-edit; then
+            git push origin "$BRANCH"
+            gh pr create \
+              --title "chore: sync upstream $(date +%Y-%m-%d)" \
+              --body "Automated sync from [dracula/visual-studio-code](https://github.com/dracula/visual-studio-code) main branch." \
+              --label upstream-sync
+          else
+            CONFLICTS=$(git diff --name-only --diff-filter=U)
+            git merge --abort
+            gh issue create \
+              --title "Upstream sync conflict $(date +%Y-%m-%d)" \
+              --body "$(cat <<EOF
+          Automated merge from upstream encountered conflicts in:
+
+          \`\`\`
+          $CONFLICTS
+          \`\`\`
+
+          Manual resolution required.
+          EOF
+          )"
+          fi
