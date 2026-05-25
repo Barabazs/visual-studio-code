@@ -1,12 +1,24 @@
-# Dracula for [Visual Studio Code](http://code.visualstudio.com)
+# Dracula for [Visual Studio Code](http://code.visualstudio.com) (Vendored Fork)
 
 > A dark theme for [Visual Studio Code](http://code.visualstudio.com).
 
-![Screenshot](https://raw.githubusercontent.com/dracula/visual-studio-code/master/screenshot.png)
+This is a **vendored fork** of [dracula/visual-studio-code](https://github.com/dracula/visual-studio-code) for private use. It is not published to the VS Code Marketplace.
 
-## Install
+### What's different
 
-All instructions can be found at [draculatheme.com/visual-studio-code](https://draculatheme.com/visual-studio-code).
+- **Publisher** changed to `Barabazs` so the `.vsix` can be side-loaded without conflicting with the official extension.
+- **Automated upstream sync** — a weekly workflow checks for new upstream commits and opens a PR for review.
+- **Automated releases** — pushing to `main` builds a `.vsix` and publishes it as a GitHub Release.
+
+### Install
+
+Download the latest `.vsix` from [Releases](https://github.com/Barabazs/visual-studio-code/releases), then:
+
+```sh
+code --install-extension dracula.vsix
+```
+
+Or use the upstream instructions at [draculatheme.com/visual-studio-code](https://draculatheme.com/visual-studio-code).
 
 ## Team
 
