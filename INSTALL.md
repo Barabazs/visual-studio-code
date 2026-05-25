@@ -1,18 +1,19 @@
 ### [Visual Studio Code](https://code.visualstudio.com/)
 
-#### Install using Command Palette
+#### Install from GitHub Release
 
-1.  Go to `View -> Command Palette` or press `Ctrl+Shift+P`
-2.  Then enter `Install Extension`
-3.  Write `Dracula Official`
-4.  Select it or press Enter to install
+Download the latest `dracula.vsix` from [Releases](https://github.com/Barabazs/visual-studio-code/releases), then:
+
+```bash
+code --install-extension dracula.vsix
+```
 
 #### Install using Git
 
 If you are a git user, you can install the theme and keep up to date by cloning the repo:
 
 ```bash
-git clone https://github.com/dracula/visual-studio-code.git ~/.vscode/extensions/theme-dracula
+git clone https://github.com/Barabazs/visual-studio-code.git ~/.vscode/extensions/theme-dracula
 cd ~/.vscode/extensions/theme-dracula
 npm install
 npm run build

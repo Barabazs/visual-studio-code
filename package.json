@@ -3,7 +3,7 @@
     "version": "2.25.1",
     "displayName": "Dracula Theme (Barabazs)",
     "homepage": "https://draculatheme.com/",
-    "description": "The official Dracula Theme: a dark theme for many editors, shells, and more. 🦇",
+    "description": "Vendored fork of the Dracula Theme: a dark theme for many editors, shells, and more. 🦇",
     "publisher": "Barabazs",
     "license": "MIT",
     "scripts": {
@@ -28,10 +28,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/dracula/visual-studio-code.git"
+        "url": "https://github.com/Barabazs/visual-studio-code.git"
     },
     "bugs": {
-        "url": "https://github.com/dracula/visual-studio-code/issues"
+        "url": "https://github.com/Barabazs/visual-studio-code/issues"
     },
     "engines": {
         "vscode": "^1.13.0"
@@ -72,7 +72,7 @@
     },
     "__metadata": {
         "id": "4e44877c-1c8d-4f9c-ba86-1372d0fbeeb1",
-        "publisherDisplayName": "Dracula Theme",
+        "publisherDisplayName": "Barabazs",
         "publisherId": "fbb3d024-f8f2-460c-bdb5-99552f6d8c4b"
     }
 }
